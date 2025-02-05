@@ -1,7 +1,7 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <string_view>
-constexpr std::string_view names[] = {"Genius", "BKL", "BSDK WALA", "Chutiya", "Gay"};//just for fun I know  it's bad though ;)
+constexpr std::string_view names[] = {"Genius", "BKL", "BSDK WALA", "Chutiya", "Gay","madarchod ","bahan ka loda ","bc","rand"};//just for fun I know  it's bad though ;)
 std::string getName()
 {
     return std::string(names[rand() % names->size()]);
