@@ -26,6 +26,8 @@ int main()
         std::cerr << "Error opening webcam!\n";
         return -1;
     }
+    cv::namedWindow("Display", cv::WINDOW_NORMAL);
+
     cv::Mat frame;
     while (cap.read(frame))
     {
@@ -52,7 +54,7 @@ int main()
         }
 
         // Show the output
-        cv::imshow("Face Detection", frame);
+        cv::imshow("Display", frame);
         if (cv::waitKey(10) == 27)
         { // Exit on pressing 'ESC'
             break;
