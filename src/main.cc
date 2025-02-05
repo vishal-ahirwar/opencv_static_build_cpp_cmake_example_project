@@ -1,25 +1,45 @@
-#include<opencv2/opencv.hpp>
-#include<opencv2/core/cuda.hpp>
+#include <opencv2/opencv.hpp>
+#include <iostream>
+
 int main() {
-    cv::VideoCapture cap(0); // Open the default camera (ID 0)
-    
+    cv::CascadeClassifier face_cascade;
+
+    // Load the Haar cascade file for face detection
+    if (!face_cascade.load("./res/haarcascade_frontalface_default.xml")) {
+        std::cerr << "Error loading face cascade!\n";
+        return -1;
+    }
+
+    // Open the default camera
+    cv::VideoCapture cap(0);
     if (!cap.isOpened()) {
-        std::cerr << "Error: Could not open camera!" << std::endl;
+        std::cerr << "Error opening webcam!\n";
         return -1;
     }
 
     cv::Mat frame;
-    while (true) {
-        cap >> frame; // Capture a new frame
+    while (cap.read(frame)) {
+        std::vector<cv::Rect> faces;
+        cv::Mat gray;
 
-        if (frame.empty()) break; // Stop if no frame is captured
+        // Convert to grayscale
+        cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
+        cv::equalizeHist(gray, gray);
 
-        cv::imshow("Webcam", frame); // Display the frame
+        // Detect faces
+        face_cascade.detectMultiScale(gray, faces, 1.1, 4, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
 
-        if (cv::waitKey(1) == 27) break; // Press 'ESC' to exit
+        // Draw rectangles around detected faces
+        for (const auto &face : faces) {
+            cv::rectangle(frame, face, cv::Scalar(255, 0, 0), 2);
+        }
+
+        // Show the output
+        cv::imshow("Face Detection", frame);
+        if (cv::waitKey(10) == 27) {  // Exit on pressing 'ESC'
+            break;
+        }
     }
 
-    cap.release(); // Release the camera
-    cv::destroyAllWindows(); // Close all OpenCV windows
     return 0;
 }
