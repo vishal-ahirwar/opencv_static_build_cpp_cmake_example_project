@@ -1,14 +1,15 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <string_view>
+#include<ADTconfig.h>
+#include<fmt/core.h>
+#include<fmt/color.h>
+
 constexpr std::string_view names[] = {"Genius","Good","average",};//just for fun I know  it's bad though ;)
-std::string getName()
-{
-    return std::string(names[rand() % names->size()]);
-};
 
 int main()
 {
+    fmt::print(fmt::fg(fmt::color::crimson),"OpenCV Static Build v{}.{}.{} {}\n",ADT_VERSION_MAJOR,ADT_VERSION_MINOR,ADT_VERSION_PATCH,ADT_COPYRIGHT);
     srand(time(nullptr));
     cv::CascadeClassifier face_cascade;
     std::vector<std::string>name;

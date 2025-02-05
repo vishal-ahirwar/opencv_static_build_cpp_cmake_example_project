@@ -15,10 +15,12 @@ set(COPYRIGHT "Copyright(c) ${CURRENT_YEAR} ${COMPANY}.")
 include_directories(src ${CMAKE_BINARY_DIR})
 configure_file(ADTconfig.h.in ADTconfig.h)
 #@find Warning: Do not remove this line
+find_package(fmt REQUIRED)
 set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/external/opencv/build)
 find_package(OpenCV REQUIRED)
 file(GLOB SOURCES "src/*.cpp" "src/*.hpp" "src/*.hxx" "src/*.h" "src/*.cc" "src/*.cxx")
 add_executable(${PROJECT_NAME} ${SOURCES})
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 #@link Warning: Do not remove this line
+target_link_libraries(${PROJECT_NAME} fmt::fmt)
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
