@@ -17,29 +17,37 @@ fs::path cascadePath()
     _path = _path / "face_data" / "res";
     if (fs::exists(_path))
     {
-        fmt::print("{} exists\n",  (_path / "haarcascade_frontalface_default.xml").string());
+        fmt::print(fmt::emphasis::faint,"{} exists\n", (_path / "haarcascade_frontalface_default.xml").string());
     }
     else
     {
-        fmt::print("{} doesn't exist!\n", (_path / "haarcascade_frontalface_default.xml").string());
-        if (fs::create_directories(_path))
+        try
         {
-            fmt::print("{} created\n", _path.string());
-            fs::path _source = fs::current_path() / "res" / "haarcascade_frontalface_default.xml";
-            fs::path _destination = _path / "haarcascade_frontalface_default.xml";
-            if (fs::copy_file(_source, _destination))
+
+            fmt::print("{} doesn't exist!\n", (_path / "haarcascade_frontalface_default.xml").string());
+            if (fs::create_directories(_path))
             {
-                fmt::print("{} copied to {}\n", "res/haarcascade_frontalface_default.xml", _path.string() + "/haarcascade_frontalface_default.xml");
+                fmt::print("{} created\n", _path.string());
+                fs::path _source = fs::current_path() / "res" / "haarcascade_frontalface_default.xml";
+                fs::path _destination = _path / "haarcascade_frontalface_default.xml";
+                if (fs::copy_file(_source, _destination))
+                {
+                    fmt::print("{} copied to {}\n", "res/haarcascade_frontalface_default.xml", _path.string() + "/haarcascade_frontalface_default.xml");
+                }
+                else
+                {
+                    fmt::print("{} doesn't exist! make sure you have {} before running this application\n", "res/haarcascade_frontalface_default.xml", "res/haarcascade_frontalface_default.xml");
+                }
             }
             else
-            {
-                fmt::print("{} doesn't exist! make sure you have {} before running this application\n", "res/haarcascade_frontalface_default.xml", "res/haarcascade_frontalface_default.xml");
-            }
+                fmt::print("failed to create {}\n", _path.string());
+            fmt::print("setup completed rerun the app\n");
         }
-        else
-            fmt::print("failed to create {}\n", _path.string());
-        fmt::print("setup completed rerun the app\n");
-        exit(0);
+        catch (std::exception &e)
+        {
+            fmt::print(fmt::emphasis::bold | fmt::fg(fmt::color::crimson), "Error : {}\n", e.what());
+            exit(0);
+        };
     };
     _path = _path / "haarcascade_frontalface_default.xml";
 
@@ -47,7 +55,7 @@ fs::path cascadePath()
 }
 int main()
 {
-    fmt::print(fmt::fg(fmt::color::crimson), "OpenCV Static Build v{}.{}.{} {}\n", ADT_VERSION_MAJOR, ADT_VERSION_MINOR, ADT_VERSION_PATCH, ADT_COPYRIGHT);
+    fmt::print(fmt::fg(fmt::color::light_green), "OpenCV Static Build\nv{}.{}.{}\n{}\n", ADT_VERSION_MAJOR, ADT_VERSION_MINOR, ADT_VERSION_PATCH, ADT_COPYRIGHT);
     srand(time(nullptr));
     cv::CascadeClassifier face_cascade;
     std::vector<std::string> name;
