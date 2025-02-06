@@ -9,7 +9,11 @@ namespace fs = std::filesystem;
 constexpr std::string_view names[] = {
     "Genius",
     "Good",
-    "average",
+    "Average",
+    "Best",
+    "Awesome",
+    "Eww",
+    "Hell,Nahh"
 }; // just for fun I know  it's bad though ;)
 fs::path cascadePath()
 {
