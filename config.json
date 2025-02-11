@@ -1,7 +1,6 @@
 {
     "build": "Wed Feb 12 01:35:17 2025",
     "cmakeArgs": [
-        "",
         "-DBUILD_SHARED_LIBS=OFF",
         "-DCMAKE_CXX_COMPILER=clang++",
         "-DCMAKE_C_COMPILER=clang",
