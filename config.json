@@ -1,0 +1,13 @@
+{
+    "build": "Wed Feb 12 01:35:17 2025",
+    "cmakeArgs": [
+        "",
+        "-DBUILD_SHARED_LIBS=OFF",
+        "-DCMAKE_CXX_COMPILER=clang++",
+        "-DCMAKE_C_COMPILER=clang",
+        "-DOpenCV_DIR=external/OpenCV/install",
+        "-Dfmt_DIR=external/fmt/install/lib/cmake/fmt"
+    ],
+    "developerName": "None",
+    "projectName": "adt"
+}

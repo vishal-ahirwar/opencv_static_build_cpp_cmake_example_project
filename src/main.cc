@@ -1,10 +1,10 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <string_view>
-#include <ADTconfig.h>
 #include <fmt/core.h>
 #include <fmt/color.h>
 #include <filesystem>
+#include<adtconfig.h>
 namespace fs = std::filesystem;
 constexpr std::string_view names[] = {
     "Genius",
